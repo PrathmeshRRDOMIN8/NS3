@@ -2,24 +2,25 @@
 #include "ns3/core-module.h"
 #include "ns3/network-module.h"
 #include "ns3/internet-module.h"
+#include "ns3/csma-module.h"
 #include "ns3/point-to-point-module.h"
-#include "ns3/application-module.h"
+#include "ns3/applications-module.h"
 
 using namespace ns3;
 NS_LOG_COMPONENT_DEFINE("CSMA MULTICAST");
 int main(int argc, char* argv[])
 {
- Config :: SetDefault ("ns3"::CsmaNetDevice::EncryptionMode,StringValue("Div"));
+ //Config :: SetDefault ("ns3"::CsmaNetDevice::EncryptionMode,StringValue("Div"));
  CommandLine cmd (__FILE__);
  cmd.Parse(argc,argv);
- NL_LOG_INFO("Create Nodes");
+ NS_LOG_INFO("Create Nodes");
  NodeContainer nodes;
  nodes.Create(5);
  NodeContainer C0 = NodeContainer(nodes.Get(0),nodes.Get(1));
  NodeContainer C1 = NodeContainer(nodes.Get(1),nodes.Get(2),nodes.Get(3),nodes.Get(4));
  CsmaHelper csma;
- csma.SetChannelAttribute("Data Rate",DataRateValue(DataRate(5Mbps));
- csma.SetChannelAttribute("Delay",TimeValue("2ms"));
+ csma.SetChannelAttribute("Data Rate",DataRateValue(DataRate("5Mbps"));
+ csma.SetChannelAttribute ("Delay", StringValue ("2ms"));
  PointToPointHelper p2p;
  p2p.SetDeviceAttribute("DataRate", StringValue("5Mbps"));
  p2p.SetChannelAttribute("Delay", StringValue("2ms"));

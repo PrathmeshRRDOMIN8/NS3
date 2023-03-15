@@ -4,6 +4,7 @@
 #include "ns3/point-to-point-module.h"
 #include "ns3/csma-module.h"
 #include "ns3/applications-module.h"
+#include "ns3/netanim-module.h"
 #include "ns3/ipv4-global-routing-helper.h"
 using namespace ns3;
 
@@ -13,6 +14,7 @@ int main (int argc, char *argv[])
   cmd.Parse (argc, argv);
 
   Time::SetResolution (Time::NS);
+  std::string animFile ="lab4q3_200953220.xml";
   LogComponentEnable ("UdpEchoClientApplication", LOG_LEVEL_INFO);
   LogComponentEnable ("UdpEchoServerApplication", LOG_LEVEL_INFO);
   LogComponentEnable ("BulkSendApplication", LOG_LEVEL_INFO);
@@ -122,9 +124,8 @@ multicast.AddMulticastRoute (multicastRouter2, interfaces2.GetAddress(0),
   ApplicationContainer clientApps = echoClient.Install (csma_nodes1.Get (0));
   clientApps.Start (Seconds (2.0));
   clientApps.Stop (Seconds (10.0));
-      Simulator::Run ();
-  
-
+  AnimationInterface anim (animFile ); 
+  Simulator::Run ();
   Simulator::Destroy ();
 }
 
